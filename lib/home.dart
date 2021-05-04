@@ -28,9 +28,6 @@ class _HomeState extends State<Home> {
         elevation: 0,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text("Hello, ${widget.name}",
-            style: GoogleFonts.openSans(
-                textStyle: TextStyle(color: Colors.black))),
         backgroundColor: HexColor('#E5D6FF'),
         actions: <Widget>[
           IconButton(
@@ -49,6 +46,22 @@ class _HomeState extends State<Home> {
                 );
               }),
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Welcome,",
+              style: GoogleFonts.catamaran(textStyle: TextStyle(fontSize: 17)),
+            ),
+            Text(
+              "${widget.name}",
+              style: GoogleFonts.catamaran(textStyle: TextStyle(fontSize: 25)),
+            ),
+          ],
+        ),
       ),
     );
   }

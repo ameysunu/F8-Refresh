@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:f8refresh/home.dart';
+import 'package:f8refresh/homewidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isLoggedIn = false;
   var profileData;
+  var fblogger = "Sign up with Facebook";
 
   var facebookLogin = FacebookLogin();
 
@@ -78,7 +79,7 @@ class _LoginState extends State<Login> {
                                         Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              return Home(
+                                              return HomeWidget(
                                                 image: profileData['picture']
                                                     ['data']['url'],
                                                 name: profileData['name'],
@@ -88,7 +89,7 @@ class _LoginState extends State<Login> {
                                         )
                                       }
                                     else
-                                      {print("Profile is empty")}
+                                      {fblogger = "Sign in to continue"}
                                   });
                         },
                         color: HexColor('#3C5898'),
@@ -103,7 +104,7 @@ class _LoginState extends State<Login> {
                                       'https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png')),
                             ),
                             Center(
-                              child: Text("Sign up with Facebook",
+                              child: Text(fblogger,
                                   style: GoogleFonts.openSans(
                                       textStyle: TextStyle(fontSize: 17))),
                             ),
