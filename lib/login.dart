@@ -1,4 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+import 'package:f8refresh/home.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -24,24 +28,94 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor('#E5D6FF'),
       appBar: AppBar(
-        title: Text("Facebook Login"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-            ),
-            onPressed: () => facebookLogin.isLoggedIn
-                .then((isLoggedIn) => isLoggedIn ? _logout() : {}),
-          ),
-        ],
+        centerTitle: false,
+        elevation: 0,
+        backgroundColor: HexColor('#E5D6FF'),
+        title: Text("Welcome",
+            style: GoogleFonts.openSans(
+                textStyle: TextStyle(color: Colors.black))),
       ),
       body: Container(
-        child: Center(
-          child: isLoggedIn
-              ? _displayUserData(profileData)
-              : _displayLoginButton(),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset('images/login.png'),
+              ),
+              Text("PACIFY",
+                  style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                          fontSize: 25,
+                          color: HexColor('#4A4453'),
+                          fontWeight: FontWeight.bold))),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ButtonTheme(
+                      height: 50,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: HexColor('#3C5898'))),
+                        onPressed: () {
+                          initiateFacebookLogin();
+                          Timer(
+                              Duration(seconds: 8),
+                              () => {
+                                    if (profileData != null)
+                                      {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return Home(
+                                                image: profileData['picture']
+                                                    ['data']['url'],
+                                                name: profileData['name'],
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      }
+                                    else
+                                      {print("Profile is empty")}
+                                  });
+                        },
+                        color: HexColor('#3C5898'),
+                        textColor: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Center(
+                              child: Container(
+                                  height: 30,
+                                  child: Image.network(
+                                      'https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png')),
+                            ),
+                            Center(
+                              child: Text("Sign up with Facebook",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(fontSize: 17))),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -58,8 +132,8 @@ class _LoginState extends State<Login> {
         onLoginStatusChanged(false);
         break;
       case FacebookLoginStatus.loggedIn:
-        var graphResponse = await http.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${facebookLoginResult.accessToken.token}');
+        var graphResponse = await http.get(Uri.parse(
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${facebookLoginResult.accessToken.token}'));
 
         var profile = json.decode(graphResponse.body);
         print(profile.toString());
@@ -67,41 +141,7 @@ class _LoginState extends State<Login> {
         onLoginStatusChanged(true, profileData: profile);
         break;
     }
-  }
-
-  _displayUserData(profileData) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          height: 200.0,
-          width: 200.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: NetworkImage(
-                profileData['picture']['data']['url'],
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 28.0),
-        Text(
-          "Logged in as: ${profileData['name']}",
-          style: TextStyle(
-            fontSize: 20.0,
-          ),
-        ),
-      ],
-    );
-  }
-
-  _displayLoginButton() {
-    return RaisedButton(
-      child: Text("Login with Facebook"),
-      onPressed: () => initiateFacebookLogin(),
-    );
+    return profileData;
   }
 
   _logout() async {
