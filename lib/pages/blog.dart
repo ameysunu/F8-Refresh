@@ -178,6 +178,49 @@ class ViewBlog extends StatefulWidget {
 class _ViewBlogState extends State<ViewBlog> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: HexColor('#FFCDAE'),
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: HexColor('#FFCDAE'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                CupertinoIcons.multiply_circle_fill,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              })
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(newDate.toUpperCase(),
+                style: TextStyle(
+                    fontFamily: 'Gotham',
+                    fontSize: 18,
+                    color: HexColor('#FF7018'))),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text("Your moods".toUpperCase(),
+                style: TextStyle(
+                    fontFamily: 'Gotham',
+                    fontSize: 20,
+                    color: HexColor('#FF7018'))),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -142,23 +142,31 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: HexColor('#FFCDAE')),
-                    child: Column(
-                      children: [
-                        Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Image.asset('images/moodnew.png')),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Text("View moods",
-                              style: GoogleFonts.catamaran(
-                                  textStyle:
-                                      TextStyle(color: HexColor('#EF8D50')))),
-                        )
-                      ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ViewBlog();
+                      }));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: HexColor('#FFCDAE')),
+                      child: Column(
+                        children: [
+                          Container(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Image.asset('images/moodnew.png')),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Text("View moods",
+                                style: GoogleFonts.catamaran(
+                                    textStyle:
+                                        TextStyle(color: HexColor('#EF8D50')))),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
