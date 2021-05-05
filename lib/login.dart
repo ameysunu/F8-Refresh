@@ -99,9 +99,9 @@ class _LoginState extends State<Login> {
                           children: [
                             Center(
                               child: Container(
-                                  height: 30,
+                                  height: 25,
                                   child: Image.network(
-                                      'https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png')),
+                                      'https://i.ibb.co/Dpccbv6/facebook.png')),
                             ),
                             Center(
                               child: Text(fblogger,
