@@ -1,3 +1,4 @@
+import 'package:f8refresh/pages/blog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -110,25 +111,33 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: HexColor('#FFC8DB')),
-                    child: Column(
-                      children: [
-                        Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Image.asset('images/mood.png')),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Text(
-                            "Add a mood",
-                            style: GoogleFonts.catamaran(
-                                textStyle:
-                                    TextStyle(color: HexColor('#F66C9C'))),
-                          ),
-                        )
-                      ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Blog();
+                      }));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: HexColor('#FFC8DB')),
+                      child: Column(
+                        children: [
+                          Container(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Image.asset('images/mood.png')),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Text(
+                              "Add a mood",
+                              style: GoogleFonts.catamaran(
+                                  textStyle:
+                                      TextStyle(color: HexColor('#F66C9C'))),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(
