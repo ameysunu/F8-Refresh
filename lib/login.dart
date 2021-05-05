@@ -34,9 +34,10 @@ class _LoginState extends State<Login> {
         centerTitle: false,
         elevation: 0,
         backgroundColor: HexColor('#E5D6FF'),
-        title: Text("Welcome",
-            style: GoogleFonts.openSans(
-                textStyle: TextStyle(color: Colors.black))),
+        title: Text(
+          "Welcome",
+          style: TextStyle(fontFamily: 'Gotham', color: Colors.black),
+        ),
       ),
       body: Container(
         child: Padding(
@@ -52,10 +53,8 @@ class _LoginState extends State<Login> {
               ),
               Text("PACIFY",
                   style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
-                          fontSize: 25,
-                          color: HexColor('#4A4453'),
-                          fontWeight: FontWeight.bold))),
+                      textStyle:
+                          TextStyle(fontFamily: 'Gotham', fontSize: 25))),
               Spacer(),
               Padding(
                 padding: const EdgeInsets.all(10.0),

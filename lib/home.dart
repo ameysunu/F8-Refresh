@@ -55,15 +55,19 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.025,
+              ),
               Text(
                 "Welcome,",
-                style:
-                    GoogleFonts.catamaran(textStyle: TextStyle(fontSize: 17)),
+                style: TextStyle(fontFamily: 'Gotham', fontSize: 17),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               Text(
                 "${widget.name}",
-                style:
-                    GoogleFonts.catamaran(textStyle: TextStyle(fontSize: 25)),
+                style: TextStyle(fontFamily: 'Gotham', fontSize: 25),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.05,
@@ -84,7 +88,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
                         child: Text(
                           "All our dreams can come true, if we have the courage to pursue them. – Walt Disney.",
-                          style: GoogleFonts.pangolin(
+                          style: GoogleFonts.catamaran(
                               textStyle:
                                   TextStyle(color: Colors.white, fontSize: 17)),
                         ),
@@ -94,16 +98,14 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.05,
+                height: MediaQuery.of(context).size.height * 0.075,
               ),
-              Row(
-                children: [
-                  Text("Mood Blogger",
-                      style: GoogleFonts.catamaran(
-                          textStyle: TextStyle(
-                              fontSize: 20, color: HexColor('#3A2F50')))),
-                  Icon(CupertinoIcons.arrow_right, color: HexColor('#3A2F50')),
-                ],
+              Text(
+                "Mood Blogger",
+                style: TextStyle(
+                    fontFamily: 'Gotham',
+                    color: HexColor('#3A2F50'),
+                    fontSize: 20),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.025,

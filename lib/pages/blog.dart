@@ -137,41 +137,6 @@ class _BlogState extends State<Blog> {
               ),
             ),
           ),
-          // Spacer(),
-          // Padding(
-          //   padding: const EdgeInsets.all(10.0),
-          //   child: Align(
-          //     alignment: FractionalOffset.bottomCenter,
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(10.0),
-          //       child: ButtonTheme(
-          //         height: 50,
-          //         child: RaisedButton(
-          //           shape: RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.circular(20.0),
-          //               side: BorderSide(color: HexColor('#E60053'))),
-          //           onPressed: () {
-          //             // newRecord();
-          //             // print("Swedish house mafia");
-          //             // clear();
-          //             Navigator.pop(context);
-          //           },
-          //           color: Colors.white,
-          //           textColor: HexColor('#E60053'),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Center(
-          //                 child: Text("Done".toUpperCase(),
-          //                     style: TextStyle(fontFamily: 'Gotham')),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -203,4 +168,16 @@ void newRecord() async {
 void clear() {
   titleController.clear();
   bodyController.clear();
+}
+
+class ViewBlog extends StatefulWidget {
+  @override
+  _ViewBlogState createState() => _ViewBlogState();
+}
+
+class _ViewBlogState extends State<ViewBlog> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
