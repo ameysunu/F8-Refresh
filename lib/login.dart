@@ -67,6 +67,45 @@ class _LoginState extends State<Login> {
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: HexColor('#FFFFFF'))),
+                        onPressed: () {
+                          null;
+                        },
+                        color: HexColor('#FFFFFF'),
+                        textColor: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Center(
+                              child: Container(
+                                  height: 25,
+                                  child: Image.network(
+                                      'https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png')),
+                            ),
+                            Center(
+                              child: Text("Sign up with Google",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          fontSize: 17, color: Colors.black))),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ButtonTheme(
+                      height: 50,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: HexColor('#3C5898'))),
                         onPressed: () {
                           initiateFacebookLogin();

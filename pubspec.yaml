@@ -33,6 +33,7 @@ dependencies:
   google_fonts: ^2.0.0
   hexcolor:
   firebase_core: ^1.1.0
+  google_sign_in: ^5.0.0
   firebase_auth: ^1.1.3
   cloud_firestore: ^2.0.0
   flutter_slidable: ^0.6.0
