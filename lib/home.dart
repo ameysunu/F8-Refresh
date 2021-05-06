@@ -8,8 +8,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'login.dart';
 
 class Home extends StatefulWidget {
-  final String name, email, image;
-  const Home({Key key, this.name, this.email, this.image}) : super(key: key);
+  final String? name, email, image;
+  const Home({Key? key, this.name, this.email, this.image}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }

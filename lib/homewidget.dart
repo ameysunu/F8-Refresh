@@ -4,8 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'home.dart';
 
 class HomeWidget extends StatefulWidget {
-  final String name, email, image;
-  const HomeWidget({Key key, this.name, this.email, this.image})
+  final String? name, email, image;
+  const HomeWidget({Key? key, this.name, this.email, this.image})
       : super(key: key);
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
