@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 
 final titleController = TextEditingController();
+
+var botvalue;
 
 class WitChat extends StatefulWidget {
   WitChat({Key key}) : super(key: key);
@@ -18,26 +21,48 @@ class _WitChatState extends State<WitChat> {
     super.initState();
   }
 
-  List<Widget> chatList = [];
+  List<Widget> chatList = [
+    Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: HexColor('#FFFFFF'),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 20, 10, 20),
+                  child: Text(
+                    "Hello! How can I help yout today?",
+                    style: TextStyle(fontFamily: 'Gotham'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor('#E5D6FF'),
       appBar: AppBar(
-        title: Text('wit.ai Bot'),
+        backgroundColor: HexColor('#E5D6FF'),
+        elevation: 0,
+        title: Text(
+          'wit.ai Bot',
+          style: TextStyle(fontFamily: 'Gotham', color: Colors.black),
+        ),
       ),
-      body:
-          // child: FutureBuilder<Post>(
-          //   future: post,
-          //   builder: (context, abc) {
-          //     if (abc.hasData) {
-          //       return Text(abc.data.title);
-          //     } else if (abc.hasError) {
-          //       return Text("${abc.error}");
-          //     }
-          //     return CircularProgressIndicator();
-          //   },
-          // ),
-          Column(
+      body: Column(
         children: [
           ...chatList,
           Spacer(),
@@ -81,7 +106,64 @@ class _WitChatState extends State<WitChat> {
                     fetchPost();
                     setState(() {
                       chatList.add(Container(
-                        child: Text(titleController.text),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: HexColor('#4245FF'),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10.0, 20, 10, 20),
+                                          child: Text(
+                                            "You: ${titleController.text}",
+                                            style: TextStyle(
+                                                fontFamily: 'Gotham',
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: HexColor('#FFFFFF')),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 25, 10, 25),
+                                      child: Text(
+                                        "wit.ai Bot: $botvalue",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ));
                     });
                   })
@@ -101,6 +183,14 @@ Future<String> fetchPost() async {
 
   if (response.statusCode == 200) {
     print(json.decode(response.body));
+    var witop = json.decode(response.body);
+    if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
+      botvalue = "So sorry to hear that. Did you try writing your mood down?";
+    } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
+      botvalue = "Yay! So excited";
+    } else {
+      botvalue = "Okay, and how did that feel?";
+    }
   } else {
     throw Exception('Failed to load post');
   }
