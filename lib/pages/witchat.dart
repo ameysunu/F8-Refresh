@@ -66,6 +66,17 @@ class _WitChatState extends State<WitChat> {
         children: [
           ...chatList,
           Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: FloatingActionButton(
+                backgroundColor: Colors.black,
+                onPressed: null,
+                child: Icon(Icons.mic),
+              ),
+            ),
+          ),
           Row(
             children: [
               Expanded(
