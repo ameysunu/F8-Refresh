@@ -1,3 +1,5 @@
+import 'package:f8refresh/pages/stats.dart';
+import 'package:f8refresh/pages/witchat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -73,6 +75,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               });
             }),
         // body: _widgetOptions.elementAt(_selectedIndex),
-        body: [Home(name: "${widget.name}")].elementAt(_selectedIndex));
+        body: [Home(name: "${widget.name}"), Stats(), WitChat()]
+            .elementAt(_selectedIndex));
   }
 }
