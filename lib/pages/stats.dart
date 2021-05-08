@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'witchat.dart' as witchat;
 
 class Stats extends StatefulWidget {
   final String name, image;
@@ -22,18 +23,22 @@ class ClicksPerYear {
 class _StatsState extends State<Stats> {
   @override
   Widget build(BuildContext context) {
+    var sad = witchat.sad;
+    var happy = witchat.happy;
+    var angry = witchat.angry;
+
     var data = [
-      ClicksPerYear('Sad', 35, HexColor('#E2A3FC')),
-      ClicksPerYear('Happy', 25, HexColor('#E2A3FC')),
-      ClicksPerYear('Angry', 15, HexColor('#E2A3FC')),
-      ClicksPerYear('Neutral', 30, HexColor('#E2A3FC')),
+      ClicksPerYear('Sad', sad, HexColor('#E2A3FC')),
+      ClicksPerYear('Happy', happy, HexColor('#E2A3FC')),
+      ClicksPerYear('Angry', angry, HexColor('#E2A3FC')),
+      ClicksPerYear('Neutral', 0, HexColor('#E2A3FC')),
     ];
 
     var weeklyData = [
-      ClicksPerYear('Sad', 8, HexColor('#FF9AB7')),
-      ClicksPerYear('Happy', 6, HexColor('#FF9AB7')),
-      ClicksPerYear('Angry', 4, HexColor('#FF9AB7')),
-      ClicksPerYear('Neutral', 7, HexColor('#FF9AB7')),
+      ClicksPerYear('Sad', (sad / 4).round(), HexColor('#FF9AB7')),
+      ClicksPerYear('Happy', (happy / 4).round(), HexColor('#FF9AB7')),
+      ClicksPerYear('Angry', (angry / 4).round(), HexColor('#FF9AB7')),
+      ClicksPerYear('Neutral', 0, HexColor('#FF9AB7')),
     ];
 
     var series = [
