@@ -1,388 +1,15 @@
-// import 'package:flutter/material.dart';
-
-// class Voice extends StatefulWidget {
-//   @override
-//   _VoiceState createState() => _VoiceState();
-// }
-
-// class _VoiceState extends State<Voice> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       appBar: AppBar(
-//         iconTheme: IconThemeData(color: Colors.black),
-//         elevation: 0,
-//         backgroundColor: Colors.white,
-//         title: Text(
-//           'wit.ai Voice Bot',
-//           style: TextStyle(fontFamily: 'Gotham', color: Colors.black),
-//         ),
-//       ),
-//       body: Column(
-//         children: [
-//           Container(
-//             height: MediaQuery.of(context).size.height * 0.025,
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.all(10.0),
-//             child: Text(
-//               "Go on.!".toUpperCase(),
-//               style: TextStyle(
-//                   fontFamily: 'Gotham', color: Colors.black, fontSize: 20),
-//             ),
-//           ),
-//           Spacer(),
-//           Align(
-//             alignment: Alignment.bottomCenter,
-//             child: Padding(
-//               padding: const EdgeInsets.all(20.0),
-//               child: CircleAvatar(
-//                 backgroundColor: Colors.white,
-//                 radius: 40,
-//                 child: IconButton(
-//                   icon: Icon(Icons.multitrack_audio, size: 30),
-//                   // icon: recognizing
-//                   //     ? Icon(
-//                   //         Icons.stop,
-//                   //         size: 30,
-//                   //         color: HexColor('#A8617A'),
-//                   //       )
-//                   //     : Icon(
-//                   //         Icons.multitrack_audio,
-//                   //         size: 30,
-//                   //         color: HexColor('#A8617A'),
-//                   //       ),
-//                   // onPressed:
-//                   //     recognizing ? stopRecording : streamingRecognize,
-//                   onPressed: null,
-//                   color: Colors.purple,
-//                 ),
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// import 'dart:async';
-// import 'dart:io' show Platform;
-// import 'package:flutter/foundation.dart' show kIsWeb;
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_tts/flutter_tts.dart';
-
-// void main() => runApp(Voice());
-
-// class Voice extends StatefulWidget {
-//   @override
-//   _VoiceState createState() => _VoiceState();
-// }
-
-// enum TtsState { playing, stopped, paused, continued }
-
-// class _VoiceState extends State<Voice> {
-//   FlutterTts flutterTts;
-//   String language;
-//   double volume = 0.5;
-//   double pitch = 1.0;
-//   double rate = 0.5;
-//   bool isCurrentLanguageInstalled = false;
-
-//   String _newVoiceText;
-
-//   TtsState ttsState = TtsState.stopped;
-
-//   get isPlaying => ttsState == TtsState.playing;
-//   get isStopped => ttsState == TtsState.stopped;
-//   get isPaused => ttsState == TtsState.paused;
-//   get isContinued => ttsState == TtsState.continued;
-
-//   bool get isIOS => !kIsWeb && Platform.isIOS;
-//   bool get isAndroid => !kIsWeb && Platform.isAndroid;
-//   bool get isWeb => kIsWeb;
-
-//   @override
-//   initState() {
-//     super.initState();
-//     initTts();
-//   }
-
-//   initTts() {
-//     flutterTts = FlutterTts();
-
-//     if (isAndroid) {
-//       _getEngines();
-//     }
-
-//     flutterTts.setStartHandler(() {
-//       setState(() {
-//         print("Playing");
-//         ttsState = TtsState.playing;
-//       });
-//     });
-
-//     flutterTts.setCompletionHandler(() {
-//       setState(() {
-//         print("Complete");
-//         ttsState = TtsState.stopped;
-//       });
-//     });
-
-//     flutterTts.setCancelHandler(() {
-//       setState(() {
-//         print("Cancel");
-//         ttsState = TtsState.stopped;
-//       });
-//     });
-
-//     if (isWeb || isIOS) {
-//       flutterTts.setPauseHandler(() {
-//         setState(() {
-//           print("Paused");
-//           ttsState = TtsState.paused;
-//         });
-//       });
-
-//       flutterTts.setContinueHandler(() {
-//         setState(() {
-//           print("Continued");
-//           ttsState = TtsState.continued;
-//         });
-//       });
-//     }
-
-//     flutterTts.setErrorHandler((msg) {
-//       setState(() {
-//         print("error: $msg");
-//         ttsState = TtsState.stopped;
-//       });
-//     });
-//   }
-
-//   Future<dynamic> _getLanguages() => flutterTts.getLanguages;
-
-//   Future _getEngines() async {
-//     var engines = await flutterTts.getEngines;
-//     if (engines != null) {
-//       for (dynamic engine in engines) {
-//         print(engine);
-//       }
-//     }
-//   }
-
-//   Future _speak() async {
-//     await flutterTts.setVolume(volume);
-//     await flutterTts.setSpeechRate(rate);
-//     await flutterTts.setPitch(pitch);
-
-//     if (_newVoiceText != null) {
-//       if (_newVoiceText.isNotEmpty) {
-//         await flutterTts.awaitSpeakCompletion(true);
-//         await flutterTts.speak(_newVoiceText);
-//       }
-//     }
-//   }
-
-//   Future _stop() async {
-//     var result = await flutterTts.stop();
-//     if (result == 1) setState(() => ttsState = TtsState.stopped);
-//   }
-
-//   Future _pause() async {
-//     var result = await flutterTts.pause();
-//     if (result == 1) setState(() => ttsState = TtsState.paused);
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     flutterTts.stop();
-//   }
-
-//   List<DropdownMenuItem<String>> getLanguageDropDownMenuItems(
-//       dynamic languages) {
-//     var items = <DropdownMenuItem<String>>[];
-//     for (dynamic type in languages) {
-//       items.add(
-//           DropdownMenuItem(value: type as String, child: Text(type as String)));
-//     }
-//     return items;
-//   }
-
-//   void changedLanguageDropDownItem(String selectedType) {
-//     setState(() {
-//       language = selectedType;
-//       flutterTts.setLanguage(language);
-//       if (isAndroid) {
-//         flutterTts
-//             .isLanguageInstalled(language)
-//             .then((value) => isCurrentLanguageInstalled = (value as bool));
-//       }
-//     });
-//   }
-
-//   void _onChange(String text) {
-//     setState(() {
-//       _newVoiceText = text;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//         home: Scaffold(
-//             appBar: AppBar(
-//               title: Text('Flutter TTS'),
-//             ),
-//             body: SingleChildScrollView(
-//                 scrollDirection: Axis.vertical,
-//                 child: Column(children: [
-//                   _inputSection(),
-//                   _btnSection(),
-//                   _futureBuilder(),
-//                   _buildSliders()
-//                 ]))));
-//   }
-
-//   Widget _futureBuilder() => FutureBuilder<dynamic>(
-//       future: _getLanguages(),
-//       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-//         if (snapshot.hasData) {
-//           return _languageDropDownSection(snapshot.data);
-//         } else if (snapshot.hasError) {
-//           return Text('Error loading languages...');
-//         } else
-//           return Text('Loading Languages...');
-//       });
-
-//   Widget _inputSection() => Container(
-//       alignment: Alignment.topCenter,
-//       padding: EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
-//       child: TextField(
-//         onChanged: (String value) {
-//           _onChange(value);
-//         },
-//       ));
-
-//   Widget _btnSection() {
-//     if (isAndroid) {
-//       return Container(
-//           padding: EdgeInsets.only(top: 50.0),
-//           child:
-//               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-//             _buildButtonColumn(Colors.green, Colors.greenAccent,
-//                 Icons.play_arrow, 'PLAY', _speak),
-//             _buildButtonColumn(
-//                 Colors.red, Colors.redAccent, Icons.stop, 'STOP', _stop),
-//           ]));
-//     } else {
-//       return Container(
-//           padding: EdgeInsets.only(top: 50.0),
-//           child:
-//               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-//             _buildButtonColumn(Colors.green, Colors.greenAccent,
-//                 Icons.play_arrow, 'PLAY', _speak),
-//             _buildButtonColumn(
-//                 Colors.red, Colors.redAccent, Icons.stop, 'STOP', _stop),
-//             _buildButtonColumn(
-//                 Colors.blue, Colors.blueAccent, Icons.pause, 'PAUSE', _pause),
-//           ]));
-//     }
-//   }
-
-//   Widget _languageDropDownSection(dynamic languages) => Container(
-//       padding: EdgeInsets.only(top: 50.0),
-//       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-//         DropdownButton(
-//           value: language,
-//           items: getLanguageDropDownMenuItems(languages),
-//           onChanged: changedLanguageDropDownItem,
-//         ),
-//         Visibility(
-//           visible: isAndroid,
-//           child: Text("Is installed: $isCurrentLanguageInstalled"),
-//         ),
-//       ]));
-
-//   Column _buildButtonColumn(Color color, Color splashColor, IconData icon,
-//       String label, Function func) {
-//     return Column(
-//         mainAxisSize: MainAxisSize.min,
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           IconButton(
-//               icon: Icon(icon),
-//               color: color,
-//               splashColor: splashColor,
-//               onPressed: () => func()),
-//           Container(
-//               margin: const EdgeInsets.only(top: 8.0),
-//               child: Text(label,
-//                   style: TextStyle(
-//                       fontSize: 12.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: color)))
-//         ]);
-//   }
-
-//   Widget _buildSliders() {
-//     return Column(
-//       children: [_volume(), _pitch(), _rate()],
-//     );
-//   }
-
-//   Widget _volume() {
-//     return Slider(
-//         value: volume,
-//         onChanged: (newVolume) {
-//           setState(() => volume = newVolume);
-//         },
-//         min: 0.0,
-//         max: 1.0,
-//         divisions: 10,
-//         label: "Volume: $volume");
-//   }
-
-//   Widget _pitch() {
-//     return Slider(
-//       value: pitch,
-//       onChanged: (newPitch) {
-//         setState(() => pitch = newPitch);
-//       },
-//       min: 0.5,
-//       max: 2.0,
-//       divisions: 15,
-//       label: "Pitch: $pitch",
-//       activeColor: Colors.red,
-//     );
-//   }
-
-//   Widget _rate() {
-//     return Slider(
-//       value: rate,
-//       onChanged: (newRate) {
-//         setState(() => rate = newRate);
-//       },
-//       min: 0.0,
-//       max: 1.0,
-//       divisions: 10,
-//       label: "Rate: $rate",
-//       activeColor: Colors.green,
-//     );
-//   }
-// }
-
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+
+String lastWords = '';
+String botResponse = '';
 
 class Voice extends StatefulWidget {
   @override
@@ -394,7 +21,6 @@ class _VoiceState extends State<Voice> {
   double level = 0.0;
   double minSoundLevel = 50000;
   double maxSoundLevel = -50000;
-  String lastWords = '';
   String lastError = '';
   String lastStatus = '';
   String _currentLocaleId = '';
@@ -407,6 +33,8 @@ class _VoiceState extends State<Voice> {
     super.initState();
     initSpeechState();
   }
+
+  List<Widget> responseList = [];
 
   Future<void> initSpeechState() async {
     var hasSpeech = await speech.initialize(
@@ -463,6 +91,40 @@ class _VoiceState extends State<Voice> {
                     onPressed: speech.isListening ? cancelListening : null,
                     child: Text('Cancel'),
                   ),
+                  TextButton(
+                    onPressed: () {
+                      fetchPost();
+                      setState(() {
+                        responseList.add(
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: HexColor('#FFFFFF')),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 25, 10, 25),
+                                    child: Text(
+                                      "$botResponse",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      });
+                    },
+                    child: Text('Done'),
+                  ),
                 ],
               ),
               Row(
@@ -515,6 +177,7 @@ class _VoiceState extends State<Voice> {
             ),
           ),
         ),
+        ...responseList,
         Spacer(),
         Container(
           padding: EdgeInsets.symmetric(vertical: 20),
@@ -576,22 +239,18 @@ class _VoiceState extends State<Voice> {
   void soundLevelListener(double level) {
     minSoundLevel = min(minSoundLevel, level);
     maxSoundLevel = max(maxSoundLevel, level);
-    // print("sound level $level: $minSoundLevel - $maxSoundLevel ");
     setState(() {
       this.level = level;
     });
   }
 
   void errorListener(SpeechRecognitionError error) {
-    // print("Received error status: $error, listening: ${speech.isListening}");
     setState(() {
       lastError = '${error.errorMsg} - ${error.permanent}';
     });
   }
 
   void statusListener(String status) {
-    // print(
-    // 'Received listener status: $status, listening: ${speech.isListening}');
     setState(() {
       lastStatus = '$status';
     });
@@ -602,5 +261,27 @@ class _VoiceState extends State<Voice> {
       _currentLocaleId = selectedVal;
     });
     print(selectedVal);
+  }
+}
+
+Future<String> fetchPost() async {
+  final response = await http.get(
+      Uri.parse('https://api.wit.ai/message?v=20210507&q=$lastWords'),
+      headers: {'Authorization': 'Bearer TXGBHYKKFQ7BU3BMKM7IAVYO5IGGN5DE'});
+
+  if (response.statusCode == 200) {
+    print(json.decode(response.body));
+    var witop = json.decode(response.body);
+    if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
+      botResponse =
+          "So sorry to hear that. Did you try writing your mood down?";
+    } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
+      botResponse = "Yay! So excited";
+    } else {
+      botResponse =
+          "Go back to mood and write it off. I promise it will be our lil secret.";
+    }
+  } else {
+    throw Exception('Failed to load post');
   }
 }

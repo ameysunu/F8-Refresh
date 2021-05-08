@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 final titleController = TextEditingController();
 
 // var botvalue = "Do you want to vent?";
-var botvalue;
+var botvalue = '';
 
 class WitChat extends StatefulWidget {
   WitChat({Key key}) : super(key: key);
