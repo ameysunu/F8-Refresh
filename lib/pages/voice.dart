@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'witchat.dart' as witchat;
 
 String lastWords = '';
 String botResponse = '';
@@ -264,6 +265,28 @@ class _VoiceState extends State<Voice> {
   }
 }
 
+// Future<String> fetchPost() async {
+//   final response = await http.get(
+//       Uri.parse('https://api.wit.ai/message?v=20210507&q=$lastWords'),
+//       headers: {'Authorization': 'Bearer TXGBHYKKFQ7BU3BMKM7IAVYO5IGGN5DE'});
+
+//   if (response.statusCode == 200) {
+//     print(json.decode(response.body));
+//     var witop = json.decode(response.body);
+//     if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
+//       botResponse =
+//           "So sorry to hear that. Did you try writing your mood down?";
+//     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
+//       botResponse = "Yay! Nice to hear that. Hope your day goes well!";
+//     } else {
+//       botResponse =
+//           "Go back to mood and write it off. I promise it will be our lil secret.";
+//     }
+//   } else {
+//     throw Exception('Failed to load post');
+//   }
+// }
+
 Future<String> fetchPost() async {
   final response = await http.get(
       Uri.parse('https://api.wit.ai/message?v=20210507&q=$lastWords'),
@@ -273,10 +296,16 @@ Future<String> fetchPost() async {
     print(json.decode(response.body));
     var witop = json.decode(response.body);
     if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
+      if ("$lastWords" == "Vent") {
+        witchat.angry = witchat.angry + 1;
+      } else {
+        witchat.sad = witchat.sad + 1;
+      }
       botResponse =
-          "So sorry to hear that. Did you try writing your mood down?";
+          "So sorry to hear that. Did you try writing your mood down? If you didn't, I highly recommend you do so. It will help you relax a little bit.";
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
-      botResponse = "Yay! Nice to hear that. Hope your day goes well!";
+      botResponse = "Yay! Nice to hear that, hope your day goes well";
+      witchat.happy = witchat.happy + 1;
     } else {
       botResponse =
           "Go back to mood and write it off. I promise it will be our lil secret.";
