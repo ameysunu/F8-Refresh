@@ -75,7 +75,10 @@ class _HomeWidgetState extends State<HomeWidget> {
               });
             }),
         // body: _widgetOptions.elementAt(_selectedIndex),
-        body: [Home(name: "${widget.name}"), Stats(), WitChat()]
-            .elementAt(_selectedIndex));
+        body: [
+          Home(name: "${widget.name}"),
+          Stats(name: "${widget.name}", image: "${widget.image}"),
+          WitChat()
+        ].elementAt(_selectedIndex));
   }
 }

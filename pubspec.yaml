@@ -39,6 +39,7 @@ dependencies:
   flutter_slidable: ^0.6.0
   flutter_tts: ^3.0.0
   speech_to_text: ^4.1.1-nullsafety
+  charts_flutter: ^0.10.0
 
 dev_dependencies:
   flutter_test:

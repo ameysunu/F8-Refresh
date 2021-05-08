@@ -10,6 +10,9 @@ final titleController = TextEditingController();
 // var botvalue = "Do you want to vent?";
 var botvalue = '';
 bool _visible = true;
+var sad = 0;
+var happy = 0;
+var angry = 0;
 
 class WitChat extends StatefulWidget {
   WitChat({Key key}) : super(key: key);
@@ -222,10 +225,16 @@ Future<String> fetchPost() async {
     print(json.decode(response.body));
     var witop = json.decode(response.body);
     if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
+      if ("${titleController.text}" == "angry") {
+        angry = angry + 1;
+      } else {
+        sad = sad + 1;
+      }
       botvalue =
           "So sorry to hear that. Did you try writing your mood down? If you didn't, I highly recommend you do so. It will help you relax a little bit.";
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
       botvalue = "Yay! So excited";
+      happy = happy + 1;
     } else {
       botvalue =
           "Go back to mood and write it off. I promise it will be our lil secret.";
