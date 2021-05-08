@@ -55,6 +55,7 @@ class _WitChatState extends State<WitChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: HexColor('#E5D6FF'),
       appBar: AppBar(
         backgroundColor: HexColor('#E5D6FF'),
