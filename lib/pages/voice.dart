@@ -93,7 +93,6 @@ class _VoiceState extends State<Voice> {
                   ),
                   TextButton(
                     onPressed: () {
-                      fetchPost();
                       setState(() {
                         responseList.add(
                           Container(
@@ -218,6 +217,7 @@ class _VoiceState extends State<Voice> {
     setState(() {
       level = 0.0;
     });
+    fetchPost();
   }
 
   void cancelListening() {
@@ -276,7 +276,7 @@ Future<String> fetchPost() async {
       botResponse =
           "So sorry to hear that. Did you try writing your mood down?";
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
-      botResponse = "Yay! So excited";
+      botResponse = "Yay! Nice to hear that. Hope your day goes well!";
     } else {
       botResponse =
           "Go back to mood and write it off. I promise it will be our lil secret.";

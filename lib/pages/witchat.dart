@@ -9,6 +9,7 @@ final titleController = TextEditingController();
 
 // var botvalue = "Do you want to vent?";
 var botvalue = '';
+bool _visible = true;
 
 class WitChat extends StatefulWidget {
   WitChat({Key key}) : super(key: key);
@@ -22,6 +23,8 @@ class _WitChatState extends State<WitChat> {
   void initState() {
     super.initState();
   }
+
+  List<Widget> responseList = [];
 
   List<Widget> chatList = [
     Padding(
@@ -41,7 +44,7 @@ class _WitChatState extends State<WitChat> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10.0, 20, 10, 20),
                   child: Text(
-                    "Hello! How can I help yout today?",
+                    "Hello! How can I help you today?",
                     style: TextStyle(fontFamily: 'Gotham'),
                   ),
                 ),
@@ -68,6 +71,7 @@ class _WitChatState extends State<WitChat> {
       body: Column(
         children: [
           ...chatList,
+          ...responseList,
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -159,7 +163,19 @@ class _WitChatState extends State<WitChat> {
                                 ),
                               ),
                             ),
-                            Container(
+                          ],
+                        ),
+                      ));
+                      Future.delayed(const Duration(seconds: 3), () {
+                        if (this.mounted) {
+                          setState(() {
+                            _visible = true;
+                          });
+                        }
+                        responseList.add(
+                          Visibility(
+                            visible: _visible,
+                            child: Container(
                               width: MediaQuery.of(context).size.width * 0.95,
                               child: Container(
                                 decoration: BoxDecoration(
@@ -183,9 +199,9 @@ class _WitChatState extends State<WitChat> {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ));
+                          ),
+                        );
+                      });
                     });
                   })
             ],
@@ -206,7 +222,8 @@ Future<String> fetchPost() async {
     print(json.decode(response.body));
     var witop = json.decode(response.body);
     if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
-      botvalue = "So sorry to hear that. Did you try writing your mood down?";
+      botvalue =
+          "So sorry to hear that. Did you try writing your mood down? If you didn't, I highly recommend you do so. It will help you relax a little bit.";
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
       botvalue = "Yay! So excited";
     } else {
