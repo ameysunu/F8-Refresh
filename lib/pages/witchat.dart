@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:f8refresh/pages/voice.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 final titleController = TextEditingController();
 
 // var botvalue = "Do you want to vent?";
-var botvalue;
+var botvalue = '';
 
 class WitChat extends StatefulWidget {
   WitChat({Key key}) : super(key: key);
@@ -54,6 +55,7 @@ class _WitChatState extends State<WitChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: HexColor('#E5D6FF'),
       appBar: AppBar(
         backgroundColor: HexColor('#E5D6FF'),
@@ -73,7 +75,11 @@ class _WitChatState extends State<WitChat> {
               alignment: Alignment.centerRight,
               child: FloatingActionButton(
                 backgroundColor: HexColor('#FFFFFF'),
-                onPressed: null,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Voice();
+                  }));
+                },
                 child: Icon(
                   Icons.mic,
                   color: HexColor('#9E6CF6'),
