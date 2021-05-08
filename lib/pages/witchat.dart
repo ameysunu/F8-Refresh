@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:f8refresh/pages/voice.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -73,7 +74,11 @@ class _WitChatState extends State<WitChat> {
               alignment: Alignment.centerRight,
               child: FloatingActionButton(
                 backgroundColor: HexColor('#FFFFFF'),
-                onPressed: null,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Voice();
+                  }));
+                },
                 child: Icon(
                   Icons.mic,
                   color: HexColor('#9E6CF6'),
