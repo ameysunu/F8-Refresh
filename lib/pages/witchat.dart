@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 final titleController = TextEditingController();
 
+// var botvalue = "Do you want to vent?";
 var botvalue;
 
 class WitChat extends StatefulWidget {
@@ -71,9 +72,12 @@ class _WitChatState extends State<WitChat> {
             child: Align(
               alignment: Alignment.centerRight,
               child: FloatingActionButton(
-                backgroundColor: Colors.black,
+                backgroundColor: HexColor('#FFFFFF'),
                 onPressed: null,
-                child: Icon(Icons.mic),
+                child: Icon(
+                  Icons.mic,
+                  color: HexColor('#9E6CF6'),
+                ),
               ),
             ),
           ),
@@ -200,7 +204,8 @@ Future<String> fetchPost() async {
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
       botvalue = "Yay! So excited";
     } else {
-      botvalue = "Okay, and how did that feel?";
+      botvalue =
+          "Go back to mood and write it off. I promise it will be our lil secret.";
     }
   } else {
     throw Exception('Failed to load post');
