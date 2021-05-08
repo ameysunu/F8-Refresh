@@ -38,6 +38,7 @@ dependencies:
   cloud_firestore: ^2.0.0
   flutter_slidable: ^0.6.0
   flutter_tts: ^3.0.0
+  speech_to_text: ^4.1.1-nullsafety
 
 dev_dependencies:
   flutter_test:
