@@ -140,7 +140,7 @@ class _BlogState extends State<Blog> {
                         ),
                         labelStyle: TextStyle(
                             fontFamily: 'Gotham', color: Colors.white),
-                        hintText: 'Add your blog\'s body',
+                        hintText: 'Tell me all about it.',
                       ),
                     ),
                   ),
