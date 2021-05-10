@@ -40,6 +40,7 @@ dependencies:
   flutter_tts: ^3.0.0
   speech_to_text: ^4.1.1-nullsafety
   charts_flutter: ^0.10.0
+  url_launcher: ^6.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'witchat.dart' as witchat;
+import '../login.dart';
 
 class User extends StatefulWidget {
   final String name, email, image;
@@ -8,6 +12,8 @@ class User extends StatefulWidget {
   @override
   _UserState createState() => _UserState();
 }
+
+var facebookLogin = FacebookLogin();
 
 class _UserState extends State<User> {
   @override
@@ -39,107 +45,157 @@ class _UserState extends State<User> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.settings,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () {
+                          witchat.sad = 0;
+                          witchat.happy = 0;
+                          witchat.angry = 0;
+                          _popup(context);
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.settings,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Reset all statistics",
-                              style: TextStyle(fontFamily: 'Gotham'),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Reset all statistics",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.info_circle,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https://developers.facebook.com/terms/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.info_circle,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Facebook SDK Terms and Conditions",
-                              style: TextStyle(fontFamily: 'Gotham'),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Facebook SDK Terms and Conditions",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.hammer_fill,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https://github.com/ameysunu/F8-Refresh';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.hammer_fill,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Report an issue",
-                              style: TextStyle(fontFamily: 'Gotham'),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Report an issue",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.rocket_fill,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https:amey.live';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.rocket_fill,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "About Us",
-                              style: TextStyle(fontFamily: 'Gotham'),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "About Us",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.power,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          facebookLogin.logOut();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Login();
+                              },
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Logout",
-                              style: TextStyle(fontFamily: 'Gotham'),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.power,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Logout",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -205,4 +261,19 @@ class _UserState extends State<User> {
       ),
     );
   }
+}
+
+void _popup(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(
+            "Reset Done!",
+            style: TextStyle(
+                color: HexColor('#FFFFFF'), fontFamily: 'Gotham', fontSize: 30),
+          ),
+          contentPadding: EdgeInsets.all(0.0),
+        );
+      });
 }
