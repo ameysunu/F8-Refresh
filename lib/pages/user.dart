@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class User extends StatefulWidget {
   final String name, email, image;
@@ -60,65 +61,95 @@ class _UserState extends State<User> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.info_circle,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https://developers.facebook.com/terms/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.info_circle,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Facebook SDK Terms and Conditions",
-                              style: TextStyle(fontFamily: 'Gotham'),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Facebook SDK Terms and Conditions",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.hammer_fill,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https://github.com/ameysunu/F8-Refresh';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.hammer_fill,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Report an issue",
-                              style: TextStyle(fontFamily: 'Gotham'),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Report an issue",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Icon(
-                              CupertinoIcons.rocket_fill,
-                              color: HexColor('#845EC2'),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'https:amey.live';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Icon(
+                                CupertinoIcons.rocket_fill,
+                                color: HexColor('#845EC2'),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "About Us",
-                              style: TextStyle(fontFamily: 'Gotham'),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "About Us",
+                                style: TextStyle(fontFamily: 'Gotham'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
