@@ -233,7 +233,7 @@ Future<String> fetchPost() async {
       botvalue =
           "So sorry to hear that. Did you try writing your mood down? If you didn't, I highly recommend you do so. It will help you relax a little bit.";
     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
-      botvalue = "Yay! So excited";
+      botvalue = "Yay! Nice to hear that, hope your day goes well";
       happy = happy + 1;
     } else {
       botvalue =

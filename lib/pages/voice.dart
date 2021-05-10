@@ -265,28 +265,6 @@ class _VoiceState extends State<Voice> {
   }
 }
 
-// Future<String> fetchPost() async {
-//   final response = await http.get(
-//       Uri.parse('https://api.wit.ai/message?v=20210507&q=$lastWords'),
-//       headers: {'Authorization': 'Bearer TXGBHYKKFQ7BU3BMKM7IAVYO5IGGN5DE'});
-
-//   if (response.statusCode == 200) {
-//     print(json.decode(response.body));
-//     var witop = json.decode(response.body);
-//     if (witop['traits']['wit\$sentiment'][0]['value'] == "negative") {
-//       botResponse =
-//           "So sorry to hear that. Did you try writing your mood down?";
-//     } else if (witop['traits']['wit\$sentiment'][0]['value'] == "positive") {
-//       botResponse = "Yay! Nice to hear that. Hope your day goes well!";
-//     } else {
-//       botResponse =
-//           "Go back to mood and write it off. I promise it will be our lil secret.";
-//     }
-//   } else {
-//     throw Exception('Failed to load post');
-//   }
-// }
-
 Future<String> fetchPost() async {
   final response = await http.get(
       Uri.parse('https://api.wit.ai/message?v=20210507&q=$lastWords'),
