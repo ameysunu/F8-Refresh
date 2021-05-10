@@ -214,7 +214,7 @@ class _UserState extends State<User> {
                   borderRadius: BorderRadius.circular(10)),
               child: Container(
                 width: MediaQuery.of(context).size.height * .90,
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.22,
                 child: Column(
                   children: [
                     Padding(
