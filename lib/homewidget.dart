@@ -1,4 +1,5 @@
 import 'package:f8refresh/pages/stats.dart';
+import 'package:f8refresh/pages/user.dart';
 import 'package:f8refresh/pages/witchat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         body: [
           Home(name: "${widget.name}"),
           Stats(name: "${widget.name}", image: "${widget.image}"),
-          WitChat()
+          WitChat(),
+          User(
+              name: "${widget.name}",
+              image: "${widget.image}",
+              email: "${widget.email}")
         ].elementAt(_selectedIndex));
   }
 }
